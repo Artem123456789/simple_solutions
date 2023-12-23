@@ -134,3 +134,4 @@ STATIC_ROOT = str(BASE_DIR / 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+CURRENT_DOMAIN = os.getenv('CURRENT_DOMAIN')

@@ -6,8 +6,8 @@ from shop.models import Item
 stripe.api_key = settings.STRIPE_API_KEY
 
 
-class ShopHandler:
-    def checkout_item(self, item_id: int):
+class ItemHandler:
+    def checkout_item(self, item_id: int) -> str:
         item = Item.objects.get(id=item_id)
 
         checkout_session = stripe.checkout.Session.create(
@@ -18,11 +18,11 @@ class ShopHandler:
                 },
             ],
             mode='payment',
-            success_url='https://google.com',
-            cancel_url='https://google.com',
+            success_url=settings.CURRENT_DOMAIN + '/payment/success.html',
+            cancel_url=settings.CURRENT_DOMAIN + '/payment/cancel.html',
         )
 
-        return checkout_session
+        return checkout_session.id
 
-    def get_item(self, item_id: int):
+    def get_item(self, item_id: int) -> Item:
         return Item.objects.get(id=item_id)
