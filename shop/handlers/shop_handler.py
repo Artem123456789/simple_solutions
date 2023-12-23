@@ -22,5 +22,7 @@ class ShopHandler:
             cancel_url='https://google.com',
         )
 
+        return checkout_session
+
     def get_item(self, item_id: int):
         return Item.objects.get(id=item_id)

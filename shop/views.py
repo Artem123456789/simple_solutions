@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 
@@ -6,9 +8,9 @@ from shop.handlers.shop_handler import ShopHandler
 
 class BuyItemView(View):
     def get(self, request, *args, **kwargs):
-        ShopHandler().checkout_item(kwargs.get('pk'))
+        session = ShopHandler().checkout_item(kwargs.get('pk'))
 
-        return render(request, 'shop/buy_item.html')
+        return JsonResponse({'id': session.id}, status=200)
 
 
 class ViewItemView(View):

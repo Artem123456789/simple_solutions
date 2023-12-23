@@ -1,3 +1,5 @@
+{% load static %}
+
 <div>
     <div>
         <h3>Название: {{ item.name }}</h3>
@@ -8,5 +10,11 @@
     <div>
         <h4>Описание: {{ item.description }}</h4>
     </div>
-    <button class="btn btn-primary" onclick="buyItem({{ item.id }})">Купить</button>
+    <button class="btn btn-primary" onclick="buyItem({{ item.id }}, {{ api_key }})">Купить</button>
 </div>
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'view_item.js' %}"></script>
+{% endblock %}
