@@ -13,7 +13,7 @@ class ShopHandler:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    'price': item.price,
+                    'price': item.price_stripe,
                     'quantity': 1,
                 },
             ],
@@ -21,3 +21,6 @@ class ShopHandler:
             success_url='https://google.com',
             cancel_url='https://google.com',
         )
+
+    def get_item(self, item_id: int):
+        return Item.objects.get(id=item_id)

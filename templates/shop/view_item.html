@@ -1,0 +1,12 @@
+<div>
+    <div>
+        <h3>Название: {{ item.name }}</h3>
+    </div>
+    <div>
+        <h4>Цена: {{ item.price_for_view }}</h4>
+    </div>
+    <div>
+        <h4>Описание: {{ item.description }}</h4>
+    </div>
+    <button class="btn btn-primary" onclick="buyItem({{ item.id }})">Купить</button>
+</div>
