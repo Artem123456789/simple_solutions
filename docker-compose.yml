@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:12.1-alpine
+    ports:
+      - '5454:5432'
+    environment:
+      - POSTGRES_DB=simple_solutions
+      - POSTGRES_USER=simple_solutions_user
+      - POSTGRES_PASSWORD=simple_solutions_password
