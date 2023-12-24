@@ -18,7 +18,7 @@ class Item(models.Model):
 
 class Discount(models.Model):
     name = models.CharField(max_length=100)
-    stripe_id = models.CharField()
+    amount = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Скидка')
@@ -30,7 +30,7 @@ class Discount(models.Model):
 
 class Tax(models.Model):
     name = models.CharField(max_length=100)
-    stripe_id = models.CharField()
+    amount = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Налог')

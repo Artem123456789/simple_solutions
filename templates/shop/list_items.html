@@ -9,6 +9,27 @@
     </div>
 {% endfor %}
 
+
+{% for discount in discounts %}
+    <div class="discount">
+        <h3>{{ discount.name }}</h3>
+        <p>{{ discount.amount }}</p>
+        <button onclick="addDiscount({{ discount.amount }})">Добавить скидку</button>
+    </div>
+{% endfor %}
+
+{% for tax in taxes %}
+    <div class="discount">
+        <h3>{{ tax.name }}</h3>
+        <p>{{ tax.amount }}</p>
+        <button onclick="addTax({{ tax.amount }})">Добавить налог</button>
+    </div>
+{% endfor %}
+
+<br>
+
+<button onclick="checkoutCart()">Оформить заказ</button>
+
 {% block script %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{% static 'shop_items.js' %}"></script>

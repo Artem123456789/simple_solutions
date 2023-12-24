@@ -18,3 +18,21 @@ addToCart = function (amount) {
     cartSum += amount
     localStorage.setItem('cartSum', JSON.stringify(cartSum))
 }
+
+addDiscount = function (amount) {
+    let cartSum = JSON.parse(localStorage.getItem('cartSum') || '0')
+    if(cartSum - amount >= 0) {
+        cartSum -= amount
+    }
+    localStorage.setItem('cartSum', JSON.stringify(cartSum))
+}
+
+addTax = function (amount) {
+    let cartSum = JSON.parse(localStorage.getItem('cartSum') || '0')
+    cartSum += amount
+    localStorage.setItem('cartSum', JSON.stringify(cartSum))
+}
+
+checkoutCart = function () {
+
+}

@@ -2,7 +2,9 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 
+from shop.handlers.discount_handler import DiscountHandler
 from shop.handlers.shop_handler import ItemHandler
+from shop.handlers.taxes_handler import TaxesHandler
 
 
 class BuyItemView(View):
@@ -22,5 +24,11 @@ class ViewItemView(View):
 class ListItemsView(View):
     def get(self, request, *args, **kwargs):
         items = ItemHandler().get_all_items()
+        discounts = DiscountHandler().get_all_items()
+        taxes = TaxesHandler().get_all_items()
 
-        return render(request, 'shop/list_items.html', {'items': items})
+        return render(
+            request,
+            'shop/list_items.html',
+            {'items': items, 'discounts': discounts, 'taxes': taxes}
+        )
