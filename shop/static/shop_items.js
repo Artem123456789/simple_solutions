@@ -12,3 +12,9 @@ buyItem = function (id) {
         },
     });
 }
+
+addToCart = function (amount) {
+    let cartSum = JSON.parse(localStorage.getItem('cartSum') || '0')
+    cartSum += amount
+    localStorage.setItem('cartSum', JSON.stringify(cartSum))
+}

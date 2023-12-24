@@ -1,7 +1,15 @@
+{% load static %}
+
 {% for item in items %}
     <div class="item">
         <h3>{{ item.name }}</h3>
         <p>{{ item.price_for_view }}</p>
         <a href="{% url 'view' item.id %}">Детали</a>
+        <button onclick="addToCart({{ item.price_for_view }})">Добавить в корзину</button>
     </div>
 {% endfor %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="{% static 'shop_items.js' %}"></script>
+{% endblock %}
