@@ -1,3 +1,5 @@
+from typing import Iterable
+
 import stripe
 from django.conf import settings
 
@@ -26,3 +28,6 @@ class ItemHandler:
 
     def get_item(self, item_id: int) -> Item:
         return Item.objects.get(id=item_id)
+
+    def get_all_items(self) -> Iterable[Item]:
+        return Item.objects.all()

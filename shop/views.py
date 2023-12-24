@@ -17,3 +17,10 @@ class ViewItemView(View):
         item = ItemHandler().get_item(kwargs.get('pk'))
 
         return render(request, 'shop/view_item.html', {'item': item})
+
+
+class ListItemsView(View):
+    def get(self, request, *args, **kwargs):
+        items = ItemHandler().get_all_items()
+
+        return render(request, 'shop/list_items.html', {'items': items})
