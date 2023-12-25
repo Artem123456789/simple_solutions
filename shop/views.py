@@ -10,6 +10,7 @@ from shop.handlers.tax_handler import TaxHandler
 
 
 class BuyItemView(View):
+    """View покупки одного товара"""
     def get(self, request, *args, **kwargs):
         session_id = ItemHandler().checkout_item(kwargs.get('pk'))
 
@@ -17,6 +18,7 @@ class BuyItemView(View):
 
 
 class ViewItemView(View):
+    """View просмотра деталей товара"""
     def get(self, request, *args, **kwargs):
         item = ItemHandler().get_item(kwargs.get('pk'))
 
@@ -24,6 +26,7 @@ class ViewItemView(View):
 
 
 class ListItemsView(View):
+    """View просмотра списка товаров и оформления заказа"""
     def get(self, request, *args, **kwargs):
         items = ItemHandler().get_all_items()
         discounts = DiscountHandler().get_all_items()
@@ -38,6 +41,7 @@ class ListItemsView(View):
 
 
 class CheckoutCartView(View):
+    """View оформления заказа корзины"""
     def get(self, request, *args, **kwargs):
         stripe_prices = request.GET['stripe_prices'].split(',')
         discounts = request.GET['discounts'].split(',')

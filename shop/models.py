@@ -4,8 +4,8 @@ from django.utils.translation import gettext as _
 
 class Item(models.Model):
     name = models.CharField(max_length=100)
-    price_stripe = models.CharField(max_length=100)
-    price_for_view = models.DecimalField(max_digits=20, decimal_places=2)
+    price_stripe = models.CharField(max_length=100, verbose_name=_('Идентификатор цены товара в Stripe'))
+    price_for_view = models.DecimalField(max_digits=20, decimal_places=2, verbose_name=_('Цена товара для отображения'))
     description = models.TextField()
 
     class Meta:
@@ -18,7 +18,7 @@ class Item(models.Model):
 
 class Discount(models.Model):
     name = models.CharField(max_length=100)
-    stripe_id = models.CharField(max_length=100, default='')
+    stripe_id = models.CharField(max_length=100, default='', verbose_name=_('Идентификатор скидки в Stripe'))
     amount = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
     class Meta:

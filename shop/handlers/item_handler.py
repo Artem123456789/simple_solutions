@@ -10,6 +10,7 @@ stripe.api_key = settings.STRIPE_API_KEY
 
 class ItemHandler:
     def checkout_item(self, item_id: int) -> str:
+        """Оформление заказа для одного товара"""
         item = Item.objects.get(id=item_id)
 
         checkout_session = stripe.checkout.Session.create(

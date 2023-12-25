@@ -16,6 +16,7 @@ stripe.api_key = settings.STRIPE_API_KEY
 class CartHandler:
 
     def checkout_cart(self, stripe_prices: List[str], discounts: List[str], currency: str) -> str:
+        """Оформление заказа корзины"""
         items = Item.objects.filter(price_stripe__in=stripe_prices)
         discounts = Discount.objects.filter(stripe_id__in=discounts)
         currency_model = Currency.objects.get(code=currency)
