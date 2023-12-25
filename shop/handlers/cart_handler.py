@@ -41,8 +41,8 @@ class CartHandler:
             ],
             mode='payment',
             currency=currency,
-            success_url=settings.CURRENT_DOMAIN + '/payment/success.html',
-            cancel_url=settings.CURRENT_DOMAIN + '/payment/cancel.html',
+            success_url=settings.CURRENT_DOMAIN + '/static/success.html',
+            cancel_url=settings.CURRENT_DOMAIN + '/static/cancel.html',
         )
 
         return checkout_session.id
