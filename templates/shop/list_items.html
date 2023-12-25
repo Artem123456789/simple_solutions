@@ -1,22 +1,27 @@
 {% load static %}
 
+<h1>Товары:</h1>
 {% for item in items %}
     <div class="item">
         <h3>{{ item.name }}</h3>
         <p>{{ item.price_for_view }}</p>
         <a href="{% url 'view' item.id %}">Детали</a>
-        <button onclick="addToCart({{ item.price_for_view }})">Добавить в корзину</button>
+        <br>
+        <button style="margin-top: 5px;" onclick="addToCart('{{ item.price_stripe }}', '{{ item.name }}')">Добавить в корзину</button>
     </div>
 {% endfor %}
 
 
-{% for discount in discounts %}
+<div style="margin-top: 50px;">
+    <h1>Скидки:</h1>
+    {% for discount in discounts %}
     <div class="discount">
         <h3>{{ discount.name }}</h3>
-        <p>{{ discount.amount }}</p>
-        <button onclick="addDiscount({{ discount.amount }})">Добавить скидку</button>
+        <p>{{ discount.amount }}%</p>
+        <button onclick="addDiscount('{{ discount.stripe_id }}')">Добавить скидку</button>
     </div>
 {% endfor %}
+</div>
 
 {% for tax in taxes %}
     <div class="discount">
@@ -26,9 +31,15 @@
     </div>
 {% endfor %}
 
-<br>
-
-<button onclick="checkoutCart()">Оформить заказ</button>
+<div style="margin-top: 50px;">
+    Валюта оплаты:
+    <select id="currencies">
+    {% for currency in currencies %}
+        <option value="{{ currency.code }}">{{ currency.name }}</option>
+    {% endfor %}
+    </select>
+</div>
+<button style="margin-top: 20px;" onclick="checkoutCart()">Оформить заказ</button>
 
 {% block script %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

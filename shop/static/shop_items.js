@@ -2,8 +2,8 @@
 
 buyItem = function (id) {
     let url = '/buy/' + id
-    api_key = 'pk_test_51OQYDXI4sAvJvb02RCTOoKBcrPfhEoyWMjsmdwd0hIdqk7NnqTfK2R9DNBRVPT5wMQ0QSSc5GX6F7a4I0omtINGP00wtqe94BE'
-    let stripe = Stripe(api_key,{locale: 'fr'});
+    let api_key = 'pk_test_51OQYDXI4sAvJvb02RCTOoKBcrPfhEoyWMjsmdwd0hIdqk7NnqTfK2R9DNBRVPT5wMQ0QSSc5GX6F7a4I0omtINGP00wtqe94BE'
+    let stripe = Stripe(api_key, {locale: 'fr'});
     $.ajax(url, {
         type: 'GET',
         data: {},
@@ -13,18 +13,17 @@ buyItem = function (id) {
     });
 }
 
-addToCart = function (amount) {
-    let cartSum = JSON.parse(localStorage.getItem('cartSum') || '0')
-    cartSum += amount
-    localStorage.setItem('cartSum', JSON.stringify(cartSum))
+addToCart = function (stripePrice, itemName) {
+    let stripePrices = JSON.parse(localStorage.getItem('stripePrices') || '[]')
+    stripePrices.push(stripePrice)
+    localStorage.setItem('stripePrices', JSON.stringify(stripePrices))
+    alert('Товар: ' + itemName + ' добавлен в корзину')
 }
 
-addDiscount = function (amount) {
-    let cartSum = JSON.parse(localStorage.getItem('cartSum') || '0')
-    if(cartSum - amount >= 0) {
-        cartSum -= amount
-    }
-    localStorage.setItem('cartSum', JSON.stringify(cartSum))
+addDiscount = function (discount) {
+    let discounts = JSON.parse(localStorage.getItem('discounts') || '[]')
+    discounts.push(discount)
+    localStorage.setItem('discounts', JSON.stringify(discounts))
 }
 
 addTax = function (amount) {
@@ -34,16 +33,22 @@ addTax = function (amount) {
 }
 
 checkoutCart = function () {
-    let cartSum = JSON.parse(localStorage.getItem('cartSum') || '0')
-    let url = '/checkout?amount=' + cartSum + '&currency=eur'
-    api_key = 'pk_test_51OQYDXI4sAvJvb02RCTOoKBcrPfhEoyWMjsmdwd0hIdqk7NnqTfK2R9DNBRVPT5wMQ0QSSc5GX6F7a4I0omtINGP00wtqe94BE'
-    let stripe = Stripe(api_key,{locale: 'fr'});
+    let stripePrices = JSON.parse(localStorage.getItem('stripePrices') || '[]')
+    stripePrices = stripePrices.join(',')
+
+    let discounts = JSON.parse(localStorage.getItem('discounts') || [])
+    discounts = discounts.join(',')
+    let currency = $("#currencies").val()
+
+    let url = '/checkout?stripe_prices=' + stripePrices + '&currency=' + currency + '&discounts=' + discounts
+    let api_key = 'pk_test_51OQYDXI4sAvJvb02RCTOoKBcrPfhEoyWMjsmdwd0hIdqk7NnqTfK2R9DNBRVPT5wMQ0QSSc5GX6F7a4I0omtINGP00wtqe94BE'
+    let stripe = Stripe(api_key, {locale: 'fr'});
 
     $.ajax(url, {
         type: 'GET',
         data: {},
         success: function (data, success, xhr) {
-            return stripe.confirmPaymentIntent(data['id']);
+            return stripe.redirectToCheckout({ sessionId: data['id'] });
         },
     });
 }

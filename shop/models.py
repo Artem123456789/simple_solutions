@@ -18,6 +18,7 @@ class Item(models.Model):
 
 class Discount(models.Model):
     name = models.CharField(max_length=100)
+    stripe_id = models.CharField(max_length=100, default='')
     amount = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
     class Meta:
@@ -40,14 +41,27 @@ class Tax(models.Model):
         return self.name
 
 
+class Currency(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = _('Валюта')
+        verbose_name_plural = _('Валюты')
+
+    def __str__(self):
+        return self.name
+
+
 class Order(models.Model):
     items = models.ManyToManyField(Item)
-    discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)
+    discounts = models.ManyToManyField(Discount)
     tax = models.ForeignKey(Tax, on_delete=models.SET_NULL, null=True, blank=True)
+    currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         verbose_name = _('Заказ')
         verbose_name_plural = _('Заказы')
 
     def __str__(self):
-        return self.id
+        return str(self.id)

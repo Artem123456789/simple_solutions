@@ -5,6 +5,7 @@ from shop.models import (
     Order,
     Discount,
     Tax,
+    Currency,
 )
 
 
@@ -30,3 +31,9 @@ class DiscountAdmin(admin.ModelAdmin):
 class TaxAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+
+
+@admin.register(Currency)
+class CurrencyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'code',)
+    search_fields = ('name' 'code',)
