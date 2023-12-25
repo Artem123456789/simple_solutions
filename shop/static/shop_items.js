@@ -56,3 +56,10 @@ checkoutCart = function () {
         },
     });
 }
+
+clearCart = function () {
+    localStorage.removeItem('stripePrices')
+    localStorage.removeItem('discounts')
+    localStorage.removeItem('cartSum')
+    alert('Корзина очищена')
+}
