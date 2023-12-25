@@ -43,3 +43,8 @@
 ## Процесс покупки одного товара
 
 ![ alt text](docs_media/buy-item.gif)
+
+
+## Процесс покупки нескольких товаров со скидкой
+
+![ alt text](docs_media/buy-items-with-discount.gif)

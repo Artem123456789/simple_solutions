@@ -24,6 +24,7 @@ addDiscount = function (discount) {
     let discounts = JSON.parse(localStorage.getItem('discounts') || '[]')
     discounts.push(discount)
     localStorage.setItem('discounts', JSON.stringify(discounts))
+    alert('Скидка применена')
 }
 
 addTax = function (amount) {
