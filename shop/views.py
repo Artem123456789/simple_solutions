@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 
 from shop.handlers.cart_handler import CartHandler
 from shop.handlers.currency_handler import CurrencyHandler
@@ -40,12 +42,13 @@ class ListItemsView(View):
         )
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class CheckoutCartView(View):
     """View оформления заказа корзины"""
-    def get(self, request, *args, **kwargs):
-        stripe_prices = request.GET['stripe_prices'].split(',')
-        discounts = request.GET['discounts'].split(',')
-        currency = request.GET['currency']
+    def post(self, request, *args, **kwargs):
+        stripe_prices = request.POST['stripe_prices'].split(',')
+        discounts = request.POST['discounts'].split(',')
+        currency = request.POST['currency']
 
         session_id = CartHandler().checkout_cart(stripe_prices, discounts, currency)
 
